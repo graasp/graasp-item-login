@@ -1,0 +1,39 @@
+{
+  "name": "graasp-item-login",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/service-api.js",
+  "types": "dist/service-api.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graasp/graasp-item-login.git"
+  },
+  "keywords": [],
+  "author": "Graasp Association",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/graasp/graasp-item-login/issues"
+  },
+  "homepage": "https://github.com/graasp/graasp-item-login#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "fastify-plugin": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/eslint": "^7.2.5",
+    "@types/graasp": "git://github.com/graasp/graasp-types.git#master",
+    "@types/node": "^14.14.7",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
+    "eslint": "^7.13.0",
+    "fastify": "^3.8.0",
+    "slonik": "^23.0.2",
+    "typescript": "^4.0.5"
+  }
+}

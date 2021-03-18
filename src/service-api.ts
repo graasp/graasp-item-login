@@ -19,8 +19,10 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
   const { tagId, graaspActor } = options;
   const {
     items: { dbService: iS },
-    itemMemberships: { dbService: iMS },
-    itemMemberships: { taskManager: itemMembershipTaskManager },
+    itemMemberships: {
+      dbService: iMS,
+      taskManager: itemMembershipTaskManager
+    },
     members: { dbService: mS },
     taskRunner: runner
   } = fastify;
@@ -47,6 +49,9 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
 
       // if member has no access/membership, create one
       if (!hasMembership) {
+        // TODO: because these 2 actions are not run in the same transaction, it's theoratically possible
+        // that this same membership is created before this next task runs, making the task fail because
+        // an existing one already exist. Even if it happens there's no real "inconsistent" outcome.
         const membership = { memberId: id }; // `permission` defaults to 'viewer' if not passed here
         const task = itemMembershipTaskManager.createCreateTask(graaspActor, membership, itemId);
         task.skipActorChecks = true;

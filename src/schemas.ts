@@ -14,10 +14,20 @@ export default {
       ],
       additionalProperties: false
     },
+    loginSchema: {
+      type: 'object',
+      properties: {
+        loginSchema: {
+          type: 'string',
+          // matches ItemLoginSchema enum in interface
+          enum: ['username', 'username+password', 'anonymous', 'anonymous+password']
+        }
+      },
+      additionalProperties: false
+    },
   }
 };
 
-// schema for login
 const login = {
   params: { $ref: 'http://graasp.org/#/definitions/idParam' },
   body: { $ref: 'http://graasp.org/item-login/#/definitions/credentials' },
@@ -28,6 +38,16 @@ const login = {
   }
 };
 
+const getLoginSchema = {
+  params: { $ref: 'http://graasp.org/#/definitions/idParam' },
+  response: {
+    '2xx': { $ref: 'http://graasp.org/item-login/#/definitions/loginSchema' },
+    '4xx': { $ref: 'http://graasp.org/#/definitions/error' },
+    '5xx': { $ref: 'http://graasp.org/#/definitions/error' },
+  }
+};
+
 export {
-  login
+  login,
+  getLoginSchema
 };

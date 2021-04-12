@@ -2,12 +2,13 @@
 import { FastifyPluginAsync } from 'fastify';
 import { Actor } from 'graasp';
 // local
-import common, { login } from './schemas';
+import common, { login, getLoginSchema } from './schemas';
 import { ItemLoginService } from './db-service';
 import { ItemLoginMemberCredentials } from './interfaces/item-login';
 import { ValidMemberSession } from './util/graasp-item-login-error';
 import { ItemLoginWithMemberIdTask } from './tasks/item-login-with-member-id-task';
 import { ItemLoginWithUsernameTask } from './tasks/item-login-with-username-task';
+import { GetLoginSchemaTask } from './tasks/get-item-login-schema';
 
 export interface GraaspItemLoginOptions {
   /** id of the tag to look for in the item to allow the "log in" to item */
@@ -31,6 +32,13 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
 
   // schemas
   fastify.addSchema(common);
+
+  fastify.get<{ Params: { id: string } }>(
+    '/:id/login', { schema: getLoginSchema },
+    async ({ log, member, params: { id: itemId } }) => {
+      const task = new GetLoginSchemaTask(member || graaspActor, itemId, iS);
+      return runner.runSingle(task, log);
+    });
 
   // "log in" to the item
   fastify.post<{ Params: { id: string }; Body: ItemLoginMemberCredentials }>(

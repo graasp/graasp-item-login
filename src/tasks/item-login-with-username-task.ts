@@ -30,6 +30,10 @@ export class ItemLoginWithUsernameTask extends ItemLoginWithTask {
     const itemMembers = await this.validateAndGetBondedMembers(handler);
     const { username, password } = this.credentials;
 
+    // TODO: what if there's two bond members w/ the same username? options:
+    // - fail login if there's already another user w/ the same username;
+    // - keep a 'username' per space by adding a column to 'item_member_login'
+    //
     // check if member w/ memberId is present
     let bondMember = itemMembers.find(({ name }) => name === username);
 

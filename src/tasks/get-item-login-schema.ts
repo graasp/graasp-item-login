@@ -5,8 +5,8 @@ import { ItemLoginExtra, ItemLoginSchema } from '../interfaces/item-login';
 import { ItemNotFound } from '../util/graasp-item-login-error';
 import { BaseItemLoginTask } from './base-item-login-task';
 
-export class GetLoginSchemaTask extends BaseItemLoginTask<{ loginSchema: ItemLoginSchema }> {
-  get name(): string { return GetLoginSchemaTask.name; }
+export class GetItemLoginSchemaTask extends BaseItemLoginTask<{ loginSchema: ItemLoginSchema }> {
+  get name(): string { return GetItemLoginSchemaTask.name; }
   private itemService: ItemService;
 
   constructor(actor: Actor, itemId: string, itemService: ItemService,

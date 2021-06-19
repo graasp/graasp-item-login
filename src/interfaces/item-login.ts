@@ -13,6 +13,8 @@ export interface ItemLoginMemberCredentials {
   password?: string;
 }
 
+// This information in 'member.extra' *can't* be shared - the serialization schema
+// must not be extended with it.
 export interface ItemLoginMemberExtra extends UnknownExtra {
   itemLogin: { password: string; }
 }
@@ -25,6 +27,8 @@ export enum ItemLoginSchema {
   AnonymousAndPassword = 'anonymous+password'
 }
 
+// This information in 'item.extra' *must* be shared - the item serialization schema
+// needs to be/is extended with it (check this plugin's code)
 export interface ItemLoginExtra extends UnknownExtra {
   itemLogin: { loginSchema: ItemLoginSchema }
 }

@@ -35,7 +35,7 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
   fastify.addSchema(common);
 
   fastify.register(async (fastify) => {
-    fastify.addHook('preHandler', fastify.fetchSession);
+    fastify.addHook('preHandler', fastify.attemptVerifyAuthentication);
 
     // get login schema for item
     fastify.get<{ Params: { id: string } }>(
@@ -46,10 +46,10 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
       });
 
     // log in to item
-    fastify.post<{ Params: { id: string }; Body: ItemLoginMemberCredentials }>(
+    fastify.post<{ Params: { id: string }; Querystring: { m: boolean }; Body: ItemLoginMemberCredentials }>(
       '/:id/login', { schema: login },
       async (request) => {
-        const { log, session, member, params: { id: itemId }, body: credentials } = request;
+        const { log, session, member, params: { id: itemId }, body: credentials, query: { m } } = request;
 
         // if there's already a valid session, fail immediately
         if (member) throw new ValidMemberSession(member.id);
@@ -71,6 +71,14 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
           await runner.runSingle(task, log);
         }
 
+        // app client
+        if (m) {
+          // TODO: can this be dangerous? since it's available in the fastify scope?
+          // can this be done better with decorators on request/reply?
+          const tokens = fastify.generateAuthTokensPair(id);
+          return Object.assign({ id, name }, { tokens });
+        }
+
         // set session
         session.set('member', id);
         return { id, name };
@@ -81,7 +89,7 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
   // update login schema for item
   fastify.register(async (fastify) => {
     // authenticated member required
-    fastify.addHook('preHandler', fastify.validateSession);
+    fastify.addHook('preHandler', fastify.verifyAuthentication);
 
     fastify.put<{ Params: { id: string }; Body: { loginSchema: ItemLoginSchema } }>(
       '/:id/login-schema', { schema: updateLoginSchema },

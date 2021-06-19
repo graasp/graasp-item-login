@@ -16,6 +16,7 @@ export default {
     },
     loginSchema: {
       type: 'object',
+      required: ['loginSchema'],
       properties: {
         loginSchema: {
           type: 'string',
@@ -30,6 +31,11 @@ export default {
 
 const login = {
   params: { $ref: 'http://graasp.org/#/definitions/idParam' },
+  querystring: {
+    type: 'object',
+    properties: { m: { type: 'boolean' } },
+    additionalProperties: false
+  },
   body: { $ref: 'http://graasp.org/item-login/#/definitions/credentials' },
   response: {
     '2xx': { $ref: 'http://graasp.org/members/#/definitions/member' }, // TODO: remove passwordHash. How to "install" changes to the original schema??

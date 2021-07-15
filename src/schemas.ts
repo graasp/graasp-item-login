@@ -47,7 +47,12 @@ const login = {
 const getLoginSchema = {
   params: { $ref: 'http://graasp.org/#/definitions/idParam' },
   response: {
-    '2xx': { $ref: 'http://graasp.org/item-login/#/definitions/loginSchema' },
+    '2xx': {
+      allOf: [
+        { $ref: 'http://graasp.org/item-login/#/definitions/loginSchema' },
+        { required: [] }
+      ]
+    },
     '4xx': { $ref: 'http://graasp.org/#/definitions/error' },
     '5xx': { $ref: 'http://graasp.org/#/definitions/error' },
   }

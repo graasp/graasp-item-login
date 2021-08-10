@@ -12,7 +12,7 @@ import { BaseItemLoginTask } from './base-item-login-task';
 import { loginSchemaRequiresPassword, validatePassword, encryptPassword } from '../util/aux';
 import { ItemLoginMemberExtra, ItemLoginSchema } from '../interfaces/item-login';
 
-export abstract class ItemLoginWithTask extends BaseItemLoginTask<{ id: string, name: string, hasMembership: boolean }> {
+export abstract class ItemLoginWithTask extends BaseItemLoginTask<{ id: string, name: string, hasMembership: boolean, item: Item }> {
   get name(): string { return ItemLoginWithTask.name; }
   private passwordProvided: boolean;
   protected itemService: ItemService;

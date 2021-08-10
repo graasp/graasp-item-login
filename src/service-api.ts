@@ -1,6 +1,6 @@
 // global
 import { FastifyPluginAsync } from 'fastify';
-import { Actor } from 'graasp';
+import { Actor, PermissionLevel } from 'graasp';
 // local
 import common, { login, getLoginSchema, updateLoginSchema } from './schemas';
 import { ItemLoginService } from './db-service';
@@ -55,21 +55,22 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
         if (member) throw new ValidMemberSession(member.id);
 
         const { username, memberId, password } = credentials; // TODO: allow for "empty" username and generate one (anonymous, anonymous+password)
-        const task = username ?
+
+        const t1 = username ?
           new ItemLoginWithUsernameTask(graaspActor, itemId, { username, password }, ilS, iS, mS, iMS) :
           new ItemLoginWithMemberIdTask(graaspActor, itemId, { memberId, password }, ilS, iS, mS, iMS);
-        const { id, name, hasMembership } = await runner.runSingle(task, log);
 
-        // if member has no access/membership, create one
-        if (!hasMembership) {
-          // TODO: because these 2 actions are not run in the same transaction, it's theoratically possible
-          // that this same membership is created before this next task runs, making the task fail because
-          // an existing one already exist. Even if it happens there's no real "inconsistent" outcome.
-          const membership = { memberId: id }; // `permission` defaults to 'viewer' if not passed here
-          const task = itemMembershipTaskManager.createCreateTask(graaspActor, membership, itemId);
-          task.skipActorChecks = true;
-          await runner.runSingle(task, log);
-        }
+        const t2 = itemMembershipTaskManager.createCreateTask(graaspActor, {});
+        t2.getInput = () => {
+          const { id: memberId, hasMembership, item: { path: itemPath } } = t1.result;
+          if (!hasMembership) {
+            return { data: { memberId, itemPath, permission: 'read', creator: graaspActor } };
+          }
+          t2.skip = true;
+        };
+
+        await runner.runSingleSequence([t1, t2], log);
+        const { id, name } = t1.result;
 
         // app client
         if (m) {

@@ -53,7 +53,7 @@ export class ItemLoginWithMemberIdTask extends ItemLoginWithTask {
     const { id, name } = bondMember;
     const hasMembership = await this.itemMembershipService.canRead(id, this.targetItem, handler);
 
-    this._result = { id, name, hasMembership };
+    this._result = { id, name, hasMembership, item: this.targetItem };
     this.status = 'OK';
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "graasp-item-login",
+  "name": "graasp-plugin-item-login",
   "version": "0.1.0",
   "description": "",
   "main": "dist/service-api.js",

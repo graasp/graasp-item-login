@@ -64,7 +64,7 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
         t2.getInput = () => {
           const { id: memberId, hasMembership, item: { path: itemPath } } = t1.result;
           if (!hasMembership) {
-            return { data: { memberId, itemPath, permission: 'read', creator: graaspActor } };
+            return { data: { memberId, itemPath, permission: 'read', creator: graaspActor.id } };
           }
           t2.skip = true;
         };

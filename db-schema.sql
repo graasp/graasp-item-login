@@ -1,3 +1,5 @@
+-- maybe remove this from here since graasp core is passing it as a plugin option
+-- so maybe graasp core should INSERT this in the DB
 INSERT INTO "tag" ("id", "name", "nested")
 VALUES ('6230a72d-59c2-45c2-a8eb-e2a01a3ac05b', 'item-login', 'fail');
 

@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/graasp/graasp-item-login.git"
+    "url": "git+https://github.com/graasp/graasp-plugin-item-login.git"
   },
   "keywords": [],
   "author": "Graasp Association",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/graasp/graasp-item-login/issues"
+    "url": "https://github.com/graasp/graasp-plugin-item-login/issues"
   },
-  "homepage": "https://github.com/graasp/graasp-item-login#readme",
+  "homepage": "https://github.com/graasp/graasp-plugin-item-login#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "fastify-plugin": "^3.0.0"

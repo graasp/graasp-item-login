@@ -1,22 +1,24 @@
 // global
-import {
-  DatabaseTransactionHandler,
-  ItemMembershipService,
-  ItemService, Member
-} from 'graasp';
+import { DatabaseTransactionHandler, ItemMembershipService, ItemService, Member } from 'graasp';
 // local
 import { ItemLoginSchema } from '../interfaces/item-login';
 import { ItemNotFound, MemberCannotAdminItem } from '../util/graasp-item-login-error';
 import { BaseItemLoginTask } from './base-item-login-task';
 
 export class UpdateItemLoginSchemaTask extends BaseItemLoginTask<{ loginSchema: ItemLoginSchema }> {
-  get name(): string { return UpdateItemLoginSchemaTask.name; }
+  get name(): string {
+    return UpdateItemLoginSchemaTask.name;
+  }
   private itemService: ItemService;
   private itemMembershipService: ItemMembershipService;
-  private loginSchema: ItemLoginSchema ;
+  private loginSchema: ItemLoginSchema;
 
-  constructor(member: Member, itemId: string, loginSchema: ItemLoginSchema,
-    itemService: ItemService, itemMembershipService: ItemMembershipService
+  constructor(
+    member: Member,
+    itemId: string,
+    loginSchema: ItemLoginSchema,
+    itemService: ItemService,
+    itemMembershipService: ItemMembershipService,
   ) {
     super(member, null, null);
     this.targetId = itemId;
@@ -38,7 +40,7 @@ export class UpdateItemLoginSchemaTask extends BaseItemLoginTask<{ loginSchema: 
 
     const { id, extra } = item;
     const loginSchema = this.loginSchema;
-    Object.assign(extra, { itemLogin: { loginSchema }});
+    Object.assign(extra, { itemLogin: { loginSchema } });
 
     // save schema change
     await this.itemService.update(id, { extra }, handler);

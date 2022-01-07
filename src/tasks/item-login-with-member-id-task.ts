@@ -1,5 +1,11 @@
 // global
-import { Actor, DatabaseTransactionHandler, ItemMembershipService, ItemService, MemberService } from 'graasp';
+import {
+  Actor,
+  DatabaseTransactionHandler,
+  ItemMembershipService,
+  ItemService,
+  MemberService,
+} from 'graasp';
 // local
 import { MemberIdentifierNotFound, InvalidMember } from '../util/graasp-item-login-error';
 import { ItemLoginService } from '../db-service';
@@ -7,15 +13,29 @@ import { ItemLoginMemberExtra } from '../interfaces/item-login';
 import { ItemLoginWithTask } from './item-login-with-task';
 
 export class ItemLoginWithMemberIdTask extends ItemLoginWithTask {
-  get name(): string { return ItemLoginWithMemberIdTask.name; }
+  get name(): string {
+    return ItemLoginWithMemberIdTask.name;
+  }
   private credentials: { memberId: string; password?: string };
 
-  constructor(actor: Actor, itemId: string, credentials: { memberId: string, password?: string },
-    itemLoginService: ItemLoginService, itemService: ItemService, memberService: MemberService,
-    itemMembershipService: ItemMembershipService
+  constructor(
+    actor: Actor,
+    itemId: string,
+    credentials: { memberId: string; password?: string },
+    itemLoginService: ItemLoginService,
+    itemService: ItemService,
+    memberService: MemberService,
+    itemMembershipService: ItemMembershipService,
   ) {
-    super(actor, itemId, Boolean(credentials.password),
-      itemLoginService, itemService, memberService, itemMembershipService);
+    super(
+      actor,
+      itemId,
+      Boolean(credentials.password),
+      itemLoginService,
+      itemService,
+      memberService,
+      itemMembershipService,
+    );
     this.credentials = credentials;
   }
 
@@ -30,14 +50,21 @@ export class ItemLoginWithMemberIdTask extends ItemLoginWithTask {
     let bondMember = itemMembers.find(({ id }) => id === memberId);
 
     if (bondMember) {
-      const { id, extra: { itemLogin } } = bondMember;
+      const {
+        id,
+        extra: { itemLogin },
+      } = bondMember;
       await this.validateCredentials(id, password, itemLogin, handler);
     } else {
       // member w/ `memberId` needs to exist
       const member = await this.memberService.get<ItemLoginMemberExtra>(memberId, handler);
       if (!member) throw new MemberIdentifierNotFound(memberId);
 
-      const { id, name, extra: { itemLogin } } = member;
+      const {
+        id,
+        name,
+        extra: { itemLogin },
+      } = member;
 
       // possibly using a memberId of a "normally" registered graasp member
       if (!itemLogin) throw new InvalidMember(memberId);

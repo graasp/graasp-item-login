@@ -17,8 +17,7 @@ export abstract class BaseItemLoginTask<R> implements Task<Actor, R> {
   targetId: string;
   data: Partial<IndividualResultType<R>>;
 
-  constructor(actor: Actor,
-    itemLoginService: ItemLoginService, memberService: MemberService) {
+  constructor(actor: Actor, itemLoginService: ItemLoginService, memberService: MemberService) {
     this.actor = actor;
     this.itemLoginService = itemLoginService;
     this.memberService = memberService;
@@ -26,8 +25,15 @@ export abstract class BaseItemLoginTask<R> implements Task<Actor, R> {
   }
 
   abstract get name(): string;
-  get result(): R { return this._result; }
-  get message(): string { return this._message; }
+  get result(): R {
+    return this._result;
+  }
+  get message(): string {
+    return this._message;
+  }
 
-  abstract run(handler: DatabaseTransactionHandler, log: FastifyLoggerInstance): Promise<void | BaseItemLoginTask<R>[]>;
+  abstract run(
+    handler: DatabaseTransactionHandler,
+    log: FastifyLoggerInstance,
+  ): Promise<void | BaseItemLoginTask<R>[]>;
 }

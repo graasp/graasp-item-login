@@ -1,5 +1,5 @@
 // global
-import { sql, DatabaseTransactionConnectionType as TrxHandler } from 'slonik';
+import { sql, DatabaseTransactionConnection as TrxHandler } from 'slonik';
 import { Item } from 'graasp';
 // local
 import { ItemLoginExtra, ItemLoginMemberExtra } from './interfaces/item-login';

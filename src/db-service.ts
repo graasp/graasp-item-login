@@ -1,7 +1,7 @@
-// global
-import { sql, DatabaseTransactionConnection as TrxHandler } from 'slonik';
-import { Item } from 'graasp';
-// local
+import { DatabaseTransactionConnection as TrxHandler, sql } from 'slonik';
+
+import { Item } from '@graasp/sdk';
+
 import { ItemLoginExtra, ItemLoginMemberExtra } from './interfaces/item-login';
 
 export class ItemLoginService {

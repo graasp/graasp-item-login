@@ -1,15 +1,15 @@
-// global
 import { FastifyPluginAsync } from 'fastify';
-import { Actor } from 'graasp';
-// local
-import common, { login, getLoginSchema, updateLoginSchema } from './schemas';
+
+import { Actor } from '@graasp/sdk';
+
 import { ItemLoginService } from './db-service';
 import { ItemLoginMemberCredentials, ItemLoginSchema } from './interfaces/item-login';
-import { ValidMemberSession } from './util/graasp-item-login-error';
+import common, { getLoginSchema, login, updateLoginSchema } from './schemas';
+import { GetItemLoginSchemaTask } from './tasks/get-item-login-schema';
 import { ItemLoginWithMemberIdTask } from './tasks/item-login-with-member-id-task';
 import { ItemLoginWithUsernameTask } from './tasks/item-login-with-username-task';
-import { GetItemLoginSchemaTask } from './tasks/get-item-login-schema';
 import { UpdateItemLoginSchemaTask } from './tasks/update-item-login-schema';
+import { ValidMemberSession } from './util/graasp-item-login-error';
 
 export interface GraaspItemLoginOptions {
   /** id of the tag to look for in the item to allow the "log in" to item */

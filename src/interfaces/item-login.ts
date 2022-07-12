@@ -1,4 +1,4 @@
-import { UnknownExtra } from 'graasp';
+import { UnknownExtra } from '@graasp/sdk';
 
 export interface ItemMemberLogin {
   itemId: string;

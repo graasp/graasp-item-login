@@ -6,7 +6,9 @@ import {
   ItemService,
   Member,
   MemberService,
-} from 'graasp';
+  TaskStatus,
+} from '@graasp/sdk';
+
 // local
 import { ItemLoginService } from '../db-service';
 import { ItemLoginMemberExtra } from '../interfaces/item-login';
@@ -41,7 +43,7 @@ export class ItemLoginWithUsernameTask extends ItemLoginWithTask {
   }
 
   async run(handler: DatabaseTransactionHandler): Promise<void> {
-    this.status = 'RUNNING';
+    this.status = TaskStatus.RUNNING;
 
     // initial validation and get members 'bonded' to item
     const itemMembers = await this.validateAndGetBondedMembers(handler);
@@ -87,6 +89,6 @@ export class ItemLoginWithUsernameTask extends ItemLoginWithTask {
     const hasMembership = await this.itemMembershipService.canRead(id, this.targetItem, handler);
 
     this._result = { id, name, hasMembership, item: this.targetItem };
-    this.status = 'OK';
+    this.status = TaskStatus.OK;
   }
 }

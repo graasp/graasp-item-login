@@ -1,5 +1,12 @@
 // global
-import { DatabaseTransactionHandler, ItemMembershipService, ItemService, Member } from 'graasp';
+import {
+  DatabaseTransactionHandler,
+  ItemMembershipService,
+  ItemService,
+  Member,
+  TaskStatus,
+} from '@graasp/sdk';
+
 // local
 import { ItemLoginSchema } from '../interfaces/item-login';
 import { ItemNotFound, MemberCannotAdminItem } from '../util/graasp-item-login-error';
@@ -28,7 +35,7 @@ export class UpdateItemLoginSchemaTask extends BaseItemLoginTask<{ loginSchema: 
   }
 
   async run(handler: DatabaseTransactionHandler): Promise<void> {
-    this.status = 'RUNNING';
+    this.status = TaskStatus.RUNNING;
 
     // get item
     const item = await this.itemService.get(this.targetId, handler);
@@ -46,6 +53,6 @@ export class UpdateItemLoginSchemaTask extends BaseItemLoginTask<{ loginSchema: 
     await this.itemService.update(id, { extra }, handler);
 
     this._result = { loginSchema };
-    this.status = 'OK';
+    this.status = TaskStatus.OK;
   }
 }

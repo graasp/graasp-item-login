@@ -1,19 +1,20 @@
 // global
-import { DatabaseTransactionHandler, Item, ItemMembershipService } from 'graasp';
-import { Actor, ItemService, MemberService } from 'graasp';
+import { DatabaseTransactionHandler, Item, ItemMembershipService } from '@graasp/sdk';
+import { Actor, ItemService, MemberService } from '@graasp/sdk';
+
+import { ItemLoginService } from '../db-service';
+import { ItemLoginMemberExtra, ItemLoginSchema } from '../interfaces/item-login';
+import { encryptPassword, loginSchemaRequiresPassword, validatePassword } from '../util/aux';
 // local
 import {
-  ItemNotFound,
-  MissingItemLoginTag,
-  MissingItemLoginSchema,
-  MissingCredentialsForLoginSchema,
   InvalidCredentials,
+  ItemNotFound,
+  MissingCredentialsForLoginSchema,
+  MissingItemLoginSchema,
+  MissingItemLoginTag,
   UnnecessaryCredentialsForLoginSchema,
 } from '../util/graasp-item-login-error';
-import { ItemLoginService } from '../db-service';
 import { BaseItemLoginTask } from './base-item-login-task';
-import { loginSchemaRequiresPassword, validatePassword, encryptPassword } from '../util/aux';
-import { ItemLoginMemberExtra, ItemLoginSchema } from '../interfaces/item-login';
 
 export abstract class ItemLoginWithTask extends BaseItemLoginTask<{
   id: string;

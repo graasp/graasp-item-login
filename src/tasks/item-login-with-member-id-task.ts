@@ -1,4 +1,3 @@
-// global
 import {
   Actor,
   DatabaseTransactionHandler,
@@ -10,7 +9,6 @@ import {
 
 import { ItemLoginService } from '../db-service';
 import { ItemLoginMemberExtra } from '../interfaces/item-login';
-// local
 import { InvalidMember, MemberIdentifierNotFound } from '../util/graasp-item-login-error';
 import { ItemLoginWithTask } from './item-login-with-task';
 

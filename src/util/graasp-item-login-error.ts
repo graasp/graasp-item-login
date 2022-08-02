@@ -4,9 +4,9 @@ import { ErrorFactory } from '@graasp/sdk';
 
 import { PLUGIN_NAME } from './constants';
 
-export const GraaspError = ErrorFactory(PLUGIN_NAME);
+export const GraaspItemLoginError = ErrorFactory(PLUGIN_NAME);
 
-export class ItemNotFound extends GraaspError {
+export class ItemNotFound extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       { code: 'GILERR001', statusCode: StatusCodes.NOT_FOUND, message: 'Item not found' },
@@ -15,7 +15,7 @@ export class ItemNotFound extends GraaspError {
   }
 }
 
-export class MemberIdentifierNotFound extends GraaspError {
+export class MemberIdentifierNotFound extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -28,7 +28,7 @@ export class MemberIdentifierNotFound extends GraaspError {
   }
 }
 
-export class InvalidMember extends GraaspError {
+export class InvalidMember extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -41,7 +41,7 @@ export class InvalidMember extends GraaspError {
   }
 }
 
-export class MissingItemLoginSchema extends GraaspError {
+export class MissingItemLoginSchema extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -54,7 +54,7 @@ export class MissingItemLoginSchema extends GraaspError {
   }
 }
 
-export class MissingItemLoginTag extends GraaspError {
+export class MissingItemLoginTag extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -67,7 +67,7 @@ export class MissingItemLoginTag extends GraaspError {
   }
 }
 
-export class ValidMemberSession extends GraaspError {
+export class ValidMemberSession extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -80,7 +80,7 @@ export class ValidMemberSession extends GraaspError {
   }
 }
 
-export class InvalidCredentials extends GraaspError {
+export class InvalidCredentials extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -94,7 +94,7 @@ export class InvalidCredentials extends GraaspError {
   }
 }
 
-export class MissingCredentialsForLoginSchema extends GraaspError {
+export class MissingCredentialsForLoginSchema extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -107,7 +107,7 @@ export class MissingCredentialsForLoginSchema extends GraaspError {
   }
 }
 
-export class UnnecessaryCredentialsForLoginSchema extends GraaspError {
+export class UnnecessaryCredentialsForLoginSchema extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       {
@@ -120,7 +120,7 @@ export class UnnecessaryCredentialsForLoginSchema extends GraaspError {
   }
 }
 
-export class MemberCannotAdminItem extends GraaspError {
+export class MemberCannotAdminItem extends GraaspItemLoginError {
   constructor(data?: unknown) {
     super(
       { code: 'GILERR009', statusCode: StatusCodes.FORBIDDEN, message: 'Member cannot admin item' },

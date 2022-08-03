@@ -1,7 +1,5 @@
-// global
 import { Actor, DatabaseTransactionHandler, ItemService, TaskStatus } from '@graasp/sdk';
 
-// local
 import { ItemLoginExtra, ItemLoginSchema } from '../interfaces/item-login';
 import { ItemNotFound } from '../util/graasp-item-login-error';
 import { BaseItemLoginTask } from './base-item-login-task';

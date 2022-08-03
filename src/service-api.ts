@@ -4,7 +4,7 @@ import { Actor } from '@graasp/sdk';
 
 import { ItemLoginService } from './db-service';
 import { ItemLoginMemberCredentials, ItemLoginSchema } from './interfaces/item-login';
-import common, { getLoginSchema, login, updateLoginSchema } from './schemas';
+import common, { getLoginSchema, login, updateLoginSchema } from './schemas/schemas';
 import { GetItemLoginSchemaTask } from './tasks/get-item-login-schema';
 import { ItemLoginWithMemberIdTask } from './tasks/item-login-with-member-id-task';
 import { ItemLoginWithUsernameTask } from './tasks/item-login-with-username-task';
@@ -39,6 +39,7 @@ const plugin: FastifyPluginAsync<GraaspItemLoginOptions> = async (fastify, optio
       '/:id/login-schema',
       { schema: getLoginSchema },
       async ({ log, member, params: { id: itemId } }) => {
+        // question: move this endpoint to public? Strange to allow graasp actor in private endpoint
         const task = new GetItemLoginSchemaTask(member || graaspActor, itemId, iS);
         return runner.runSingle(task, log);
       },

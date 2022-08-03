@@ -1,4 +1,3 @@
-// global
 import {
   Actor,
   DatabaseTransactionHandler,
@@ -9,7 +8,6 @@ import {
   TaskStatus,
 } from '@graasp/sdk';
 
-// local
 import { ItemLoginService } from '../db-service';
 import { ItemLoginMemberExtra } from '../interfaces/item-login';
 import { encryptPassword, generateRandomEmail } from '../util/aux';

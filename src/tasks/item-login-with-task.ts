@@ -1,11 +1,9 @@
-// global
 import { DatabaseTransactionHandler, Item, ItemMembershipService } from '@graasp/sdk';
 import { Actor, ItemService, MemberService } from '@graasp/sdk';
 
 import { ItemLoginService } from '../db-service';
 import { ItemLoginMemberExtra, ItemLoginSchema } from '../interfaces/item-login';
 import { encryptPassword, loginSchemaRequiresPassword, validatePassword } from '../util/aux';
-// local
 import {
   InvalidCredentials,
   ItemNotFound,

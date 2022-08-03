@@ -1,4 +1,3 @@
-// global
 import {
   DatabaseTransactionHandler,
   ItemMembershipService,
@@ -7,7 +6,6 @@ import {
   TaskStatus,
 } from '@graasp/sdk';
 
-// local
 import { ItemLoginSchema } from '../interfaces/item-login';
 import { ItemNotFound, MemberCannotAdminItem } from '../util/graasp-item-login-error';
 import { BaseItemLoginTask } from './base-item-login-task';

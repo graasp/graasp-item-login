@@ -1,4 +1,3 @@
-// global
 import { FastifyLoggerInstance } from 'fastify';
 
 import {
@@ -9,7 +8,6 @@ import {
 } from '@graasp/sdk';
 import { Task, TaskStatus } from '@graasp/sdk';
 
-// local
 import { ItemLoginService } from '../db-service';
 
 export abstract class BaseItemLoginTask<R> implements Task<Actor, R> {

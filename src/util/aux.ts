@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
-import cryptoRandomString from 'crypto-random-string';
+import crypto from 'crypto';
 
 import { ItemLoginSchema } from '../interfaces/item-login';
 
-const randomHexOf4 = () => cryptoRandomString({ length: 4, type: 'hex' });
+const randomHexOf4 = () => crypto.randomBytes(2).toString('hex');
 const saltRounds = 10;
 
 export const encryptPassword = async (password: string): Promise<string> =>
